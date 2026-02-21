@@ -14,6 +14,30 @@
 
   <b:skin><![CDATA[
     :root {
+      --primary: #60a5fa;
+      --primary-hover: #93c5fd;
+      --primary-light: #1e3a8a;
+      --focus-ring: rgba(96,165,250,0.25);
+      --accent: #fbbf24;
+      --accent-light: #451a03;
+      --success: #34d399;
+      --success-light: #064e3b;
+      --bg-body: #000000;
+      --bg-card: #0a0a0a;
+      --bg-hero: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #1f1f1f;
+      --radius: 8px;
+      --input-bg: #1a1a1a;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.45);
+      --shadow: 0 2px 4px rgba(0,0,0,0.50), 0 1px 2px rgba(0,0,0,0.40);
+      --shadow-md: 0 4px 8px rgba(0,0,0,0.45), 0 2px 4px rgba(0,0,0,0.35);
+      --shadow-lg: 0 10px 20px rgba(0,0,0,0.45), 0 4px 8px rgba(0,0,0,0.35);
+      --shadow-xl: 0 20px 30px rgba(0,0,0,0.50), 0 8px 12px rgba(0,0,0,0.40);
+    }
+
+    [data-theme="light"] {
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
       --primary-light: #dbeafe;
@@ -28,36 +52,12 @@
       --text-main: #0f172a;
       --text-muted: #64748b;
       --border: #e2e8f0;
-      --radius: 12px;
       --input-bg: #f1f5f9;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
       --shadow: 0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
       --shadow-md: 0 4px 8px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.06);
       --shadow-lg: 0 10px 20px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08);
       --shadow-xl: 0 20px 30px rgba(0,0,0,0.15), 0 8px 12px rgba(0,0,0,0.10);
-    }
-
-    [data-theme="dark"] {
-      --primary: #60a5fa;
-      --primary-hover: #93c5fd;
-      --primary-light: #1e3a8a;
-      --focus-ring: rgba(96,165,250,0.25);
-      --accent: #fbbf24;
-      --accent-light: #451a03;
-      --success: #34d399;
-      --success-light: #064e3b;
-      --bg-body: #0f172a;
-      --bg-card: #1e293b;
-      --bg-hero: linear-gradient(135deg, #4c1d95 0%, #1e1b4b 100%);
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --border: #334155;
-      --input-bg: #1e293b;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.45);
-      --shadow: 0 2px 4px rgba(0,0,0,0.50), 0 1px 2px rgba(0,0,0,0.40);
-      --shadow-md: 0 4px 8px rgba(0,0,0,0.45), 0 2px 4px rgba(0,0,0,0.35);
-      --shadow-lg: 0 10px 20px rgba(0,0,0,0.45), 0 4px 8px rgba(0,0,0,0.35);
-      --shadow-xl: 0 20px 30px rgba(0,0,0,0.50), 0 8px 12px rgba(0,0,0,0.40);
     }
 
     * { box-sizing: border-box; }
@@ -136,68 +136,94 @@
 
     /* HEADER - Enhanced for Students */
     header {
-      background: var(--bg-card);
-      border-bottom: 2px solid var(--primary-light);
-      box-shadow: var(--shadow-md);
+      background: rgba(10, 10, 10, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
       position: sticky; 
       top: 0; 
       z-index: 100; 
-      height: 70px; 
+      height: 60px; 
       display: flex; 
       align-items: center;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(20px);
     }
     .header-inner { 
       width: 100%; 
-      max-width: 1200px; 
+      max-width: 1400px; 
       margin: 0 auto; 
-      padding: 0 24px; 
+      padding: 0 32px; 
       display: flex; 
       justify-content: space-between; 
       align-items: center; 
     }
     .brand { 
-      font-weight: 800; 
-      font-size: 24px; 
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-weight: 700; 
+      font-size: 20px; 
+      color: var(--text-main);
       letter-spacing: -0.5px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+    .brand:hover {
+      color: var(--primary);
     }
     .brand::before {
       content: '📚';
-      -webkit-text-fill-color: initial;
-      font-size: 28px;
+      font-size: 24px;
     }
     .nav-links { 
       display: flex; 
-      gap: 8px; 
+      gap: 2px; 
       align-items: center; 
     }
     .nav-links a { 
-      font-size: 14px; 
-      font-weight: 600; 
+      font-size: 13px; 
+      font-weight: 500; 
       color: var(--text-muted); 
-      padding: 8px 14px;
-      border-radius: 8px;
+      padding: 8px 16px;
+      border-radius: 6px;
       transition: all 0.2s ease;
+      position: relative;
     }
     .nav-links a:hover { 
-      color: var(--primary); 
-      background: var(--primary-light);
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 80%;
+      height: 2px;
+      background: var(--primary);
+      transition: transform 0.3s ease;
+    }
+    .nav-links a:hover::after {
+      transform: translateX(-50%) scaleX(1);
     }
     .btn-upload {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+      background: var(--primary);
       color: #fff !important;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 8px 20px;
+      border-radius: 6px;
       font-size: 13px;
-      font-weight: 700;
-      box-shadow: var(--shadow-md);
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+    .btn-upload:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(96, 165, 250, 0.4);
+    }
+    .btn-upload::after {
+      display: none;
+    }
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
@@ -594,54 +620,59 @@
     /* MOBILE MENU - Enhanced */
     .menu-toggle { 
       display: none; 
-      font-size: 28px; 
+      font-size: 24px; 
       cursor: pointer; 
-      color: var(--primary);
+      color: var(--text-main);
       transition: all 0.3s ease;
+      padding: 8px;
+      border-radius: 6px;
     }
     .menu-toggle:hover {
-      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--primary);
     }
     .menu-toggle:focus-visible { 
       outline: 2px solid var(--primary); 
-      outline-offset: 4px; 
+      outline-offset: 2px; 
       border-radius: 6px; 
     }
     .mobile-menu {
       position: fixed; 
       top: 0; 
       left: 0; 
-      width: 300px; 
+      width: 280px; 
       height: 100vh;
-      background: var(--bg-card);
-      border-right: 3px solid var(--primary-light);
-      box-shadow: var(--shadow-xl);
-      padding: 28px;
+      background: rgba(10, 10, 10, 0.98);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+      padding: 24px;
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 999;
       display: flex; 
       flex-direction: column; 
       gap: 4px;
       overflow-y: auto;
+      backdrop-filter: blur(20px);
     }
     .mobile-menu.active { 
       transform: translateX(0); 
     }
     .mobile-menu a {
-      padding: 14px 16px;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-main);
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--text-muted);
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 10px;
     }
     .mobile-menu a:hover {
-      background: var(--primary-light);
-      color: var(--primary);
-      transform: translateX(5px);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      transform: translateX(4px);
     }
     .mobile-theme-toggle { 
       margin-top: auto; 
@@ -2254,124 +2285,29 @@
     box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
   }
 
-  /* --- 2. HACKER SYSTEM LOADER --- */
-  #sys-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: #020617; /* Deep Black Background */
-    z-index: 999999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.5s ease, visibility 0.5s;
-  }
-
-  /* Terminal Window Box */
-  .terminal-loader {
-    border: 1px solid #334155;
-    background-color: #0f172a;
-    width: 280px;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-    font-family: 'Courier New', Courier, monospace;
-  }
-
-  /* Terminal Header (Dots) */
-  .terminal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #334155;
-    padding-bottom: 10px;
-  }
-  
-  .terminal-controls {
-    display: flex;
-    gap: 6px;
-  }
-  
-  .control { width: 10px; height: 10px; border-radius: 50%; }
-  .close { background: #ef4444; }
-  .minimize { background: #eab308; }
-  .maximize { background: #22c55e; }
-
-  .terminal-title {
-    font-size: 10px;
-    color: #64748b;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-
-  /* Typing Text Effect */
-  .text {
-    color: #10b981; /* Hacker Green */
-    font-size: 12px;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 2px solid #10b981; /* The Cursor */
-    animation: type 2s steps(20) infinite alternate, blink 0.5s step-end infinite alternate;
-  }
-
-  @keyframes type { from { width: 0 } to { width: 100% } }
-  @keyframes blink { 50% { border-color: transparent } }
-
-  /* Class to hide loader */
-  .loader-hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
 </style>
 
 <div id="reading-progress"></div>
 
-<div id="sys-loader">
-  <div class="terminal-loader">
-    <div class="terminal-header">
-      <div class="terminal-controls">
-        <div class="control close"></div>
-        <div class="control minimize"></div>
-        <div class="control maximize"></div>
-      </div>
-      <div class="terminal-title">PYQHUB_SYS_BOOT</div>
-    </div>
-    <div class="text">Loading Resources..._</div>
-  </div>
-</div>
-
 <script>
 //<![CDATA[
-  // --- 1. PROGRESS BAR LOGIC ---
+  // Reading Progress Bar
   window.addEventListener("scroll", () => {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     
-    // Prevent division by zero
     if (scrollHeight > 0) {
         const percent = (scrollTop / scrollHeight) * 100;
-        document.getElementById("reading-progress").style.width = percent + "%";
+        const progressBar = document.getElementById("reading-progress");
+        if (progressBar) {
+          progressBar.style.width = percent + "%";
+        }
     }
   });
-
-  // --- 2. LOADER LOGIC ---
-  window.addEventListener('load', () => {
-    // Keep loader for at least 1.5 seconds so user sees the cool animation
-    setTimeout(() => {
-        document.getElementById('sys-loader').classList.add('loader-hidden');
-    }, 1500);
-  });
-
-  // Fallback: If site loads super slow, force remove loader after 5 seconds
-  setTimeout(() => {
-      document.getElementById('sys-loader').classList.add('loader-hidden');
-  }, 5000);
 //]]]]><![CDATA[>
-</script>]]></b:widget-setting>
+</script>
+
+]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
   <b:include name='widget-title'/>
@@ -2782,158 +2718,7 @@ body.site-loaded {
     opacity: 1;
 }
 
-/* --- PART 2: THE SPEEDSTER CAR LOADER --- */
-
-#car-loader-wrapper {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100vh;
-    background: #0f172a; /* Deep PyqHub Blue */
-    z-index: 99999999;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transition: opacity 0.5s ease 0.5s; /* Delay fade out so car can leave first */
-}
-
-/* The Road */
-.road {
-    width: 200%;
-    height: 4px;
-    background: #334155;
-    position: relative;
-    margin-top: 10px;
-    overflow: hidden;
-}
-
-/* Moving Road Lines (Creates speed illusion) */
-.road::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: repeating-linear-gradient(90deg, transparent 0, transparent 50px, #6366f1 50px, #6366f1 100px);
-    animation: road-move 0.8s linear infinite;
-}
-
-/* The Car Container */
-.car-container {
-    width: 120px;
-    position: relative;
-    z-index: 2;
-}
-
-/* Car Suspension Bounce (Idling) */
-.car-body {
-    animation: bounce 0.6s infinite ease-in-out alternate;
-}
-
-/* Wheels Spinning */
-.wheel {
-    transform-origin: center;
-    animation: spin 0.2s linear infinite;
-}
-
-/* Wind/Speed Lines */
-.wind {
-    position: absolute;
-    right: -50px;
-    top: 10px;
-    width: 40px;
-    height: 2px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 2px;
-    animation: wind-flow 0.5s linear infinite;
-}
-.wind:nth-child(2) { top: 20px; right: -70px; animation-delay: 0.1s; width: 60px; }
-.wind:nth-child(3) { top: 30px; right: -40px; animation-delay: 0.2s; width: 30px; }
-
-/* Loading Text */
-.loading-text {
-    margin-top: 40px;
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #6366f1;
-    text-transform: uppercase;
-    font-size: 14px;
-    animation: blink 1s infinite;
-}
-
-/* --- ANIMATION KEYFRAMES --- */
-@keyframes road-move { from { transform: translateX(0); } to { transform: translateX(-100px); } }
-@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(2px); } }
-@keyframes spin { 100% { transform: rotate(360deg); } }
-@keyframes wind-flow { 0% { transform: translateX(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateX(-60px); opacity: 0; } }
-@keyframes blink { 50% { opacity: 0.5; } }
-
-/* --- THE EXIT ANIMATION (The "Zoom Off") --- */
-.zoom-off {
-    animation: drive-away 0.8s cubic-bezier(0.5, 0, 0.5, 1) forwards;
-}
-
-@keyframes drive-away {
-    0% { transform: translateX(0) skewX(0); }
-    40% { transform: translateX(-20px) skewX(10deg); } /* Slight pullback before launch */
-    100% { transform: translateX(200vw) skewX(-20deg); } /* ZOOM OFF SCREEN */
-}
-
-.loader-fade-out {
-    opacity: 0;
-    pointer-events: none;
-}
-</style>
-
-<div id="car-loader-wrapper">
-    <div class="car-container" id="the-car">
-        <svg viewbox="0 0 200 80" width="100%" height="100%">
-            <g class="car-body">
-                <path fill="#6366f1" d="M10,50 L20,35 L50,30 L90,20 L140,20 L170,30 L190,45 L190,55 L10,55 Z" />
-                <path fill="#4f46e5" d="M90,20 L140,20 L165,30 L90,30 Z" opacity="0.5" /> </path></path></g>
-            <g class="car-body">
-                <circle class="wheel" cx="45" cy="55" r="12" fill="#1e293b" stroke="#fff" stroke-width="2" stroke-dasharray="5,3"/>
-                <circle class="wheel" cx="155" cy="55" r="12" fill="#1e293b" stroke="#fff" stroke-width="2" stroke-dasharray="5,3"/>
-            </circle></circle></g>
-            <rect class="wind" />
-            <rect class="wind" />
-            <rect class="wind" />
-        </rect></rect></rect></svg>
-    </div>
-    
-    <div class="road"></div>
-    <div class="loading-text">Starting Engine...</div>
-</div>
-
-<script>
-window.addEventListener('load', () => {
-    const wrapper = document.getElementById('car-loader-wrapper');
-    const car = document.getElementById('the-car');
-    const text = document.querySelector('.loading-text');
-
-    // 1. Change text to indicate readiness
-    text.innerText = "Ready... Set... Go!";
-    text.style.color = "#10b981"; // Green for GO
-
-    // 2. Trigger the "Zoom Off" animation
-    setTimeout(() => {
-        car.classList.add('zoom-off'); // Car speeds away
-    }, 400);
-
-    // 3. Fade out the background layer and reveal site
-    setTimeout(() => {
-        wrapper.classList.add('loader-fade-out'); // Background fades
-        document.body.classList.add('site-loaded'); // Site content fades in
-    }, 1000); // Timing matches the car leaving
-});
-
-// Fallback (Force open after 5s if internet is bad)
-setTimeout(() => {
-    document.getElementById('car-loader-wrapper').classList.add('loader-fade-out');
-    document.body.classList.add('site-loaded');
-}, 5000);
-</script>]]></b:widget-setting>
+]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
   <b:include name='widget-title'/>
