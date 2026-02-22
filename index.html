@@ -1,306 +1,838 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:version='2' expr:dir='data:blog.languageDirection' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<html
+  b:css='false'
+  b:defaultwidgetversion='2'
+  b:layoutsVersion='3'
+  b:responsive='true'
+  b:version='2'
+  expr:dir='data:blog.languageDirection'
+  lang='en'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:b='http://www.google.com/2005/gml/b'
+  xmlns:data='http://www.google.com/2005/gml/data'
+  xmlns:expr='http://www.google.com/2005/gml/expr'>
+
+<!-- ============================================================
+     PYQHUB — Student-First Blogger Theme
+     Stack : Tailwind CSS CDN + Inter font + FontAwesome 6
+     Author: localhostamit  |  Version: 2.0
+     ============================================================ -->
 
 <head>
-  <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1' name='viewport'/>
+  <!-- ── Meta ── -->
+  <meta charset='UTF-8'/>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <meta expr:content='data:blog.metaDescription' name='description'/>
+  <meta content='index, follow' name='robots'/>
+
+  <!-- ── Canonical / OG ── -->
+  <b:if cond='data:blog.url'>
+    <link expr:href='data:blog.url' rel='canonical'/>
+  </b:if>
+  <meta expr:content='data:blog.title' property='og:site_name'/>
+  <meta expr:content='data:blog.pageTitle' property='og:title'/>
+  <meta expr:content='data:blog.metaDescription' property='og:description'/>
+  <meta content='website' property='og:type'/>
+
+  <!-- ── Page Title ── -->
   <title><data:blog.pageTitle/></title>
+
+  <!-- ── Blogger head includes ── -->
   <b:include data='blog' name='all-head-content'/>
-  
-  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Poppins:wght@500;600;700;800&amp;display=swap' rel='stylesheet'/>
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css' rel='stylesheet'/>
 
+  <!-- ── Fonts ── -->
+  <link rel='preconnect' href='https://fonts.googleapis.com'/>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin='anonymous'/>
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap' rel='stylesheet'/>
+
+  <!-- ── Tailwind CSS CDN (Play CDN for flexibility) ── -->
+  <script src='https://cdn.tailwindcss.com'></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+          },
+          backdropBlur: { xs: '2px' },
+        },
+      },
+    };
+  </script>
+
+  <!-- ── FontAwesome ── -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'/>
+
+  <!-- ── Blogger Skin (minimal overrides — Tailwind does the heavy lifting) ── -->
   <b:skin><![CDATA[
-    :root {
-      --primary: #4f46e5;
-      --primary-hover: #4338ca;
-      --bg-body: #f8fafc;
-      --bg-card: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --radius: 12px;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    /* === PYQHUB BASE SKIN === */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    [data-theme="dark"] {
-      --primary: #6366f1;
-      --primary-hover: #818cf8;
-      --bg-body: #0f172a;
-      --bg-card: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --border: #334155;
+    /* ── Blogger Widget Resets ── */
+    .widget { margin: 0 !important; padding: 0 !important; }
+    .widget h2 { margin: 0 !important; }
+    #blog-pager { margin: 2rem 0; }
+    .blog-pager-older-link, .blog-pager-newer-link, .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.5rem 1.125rem;
+      border-radius: 0.5rem;
+      background: #4f46e5;
+      color: #fff !important;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: background 0.2s;
+    }
+    .blog-pager-older-link:hover,
+    .blog-pager-newer-link:hover,
+    .home-link:hover { background: #4338ca; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 99px; }
+    .dark ::-webkit-scrollbar-thumb { background: #4338ca; }
+
+    /* ── Search Input (native Blogger search overrides) ── */
+    #searchform input[type=text] {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: inherit;
+    }
+    #searchform button[type=submit] { display: none; }
+
+    /* ── Post body typography ── */
+    .post-body h2 { font-size: 1.5rem; font-weight: 700; margin: 1.5rem 0 0.75rem; }
+    .post-body h3 { font-size: 1.25rem; font-weight: 600; margin: 1.25rem 0 0.625rem; }
+    .post-body p  { margin-bottom: 1rem; line-height: 1.75; }
+    .post-body a  { color: #4f46e5; text-decoration: underline; }
+    .post-body ul, .post-body ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .post-body li { margin-bottom: 0.25rem; }
+    .post-body pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 1rem 1.25rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    .post-body code {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.25rem;
+      font-size: 0.875em;
+    }
+    .dark .post-body code { background: #312e81; color: #c7d2fe; }
+    .post-body img { border-radius: 0.75rem; margin: 1rem 0; }
+    .post-body blockquote {
+      border-left: 4px solid #6366f1;
+      padding: 0.75rem 1.25rem;
+      margin: 1rem 0;
+      background: #eef2ff;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-style: italic;
+      color: #4338ca;
+    }
+    .dark .post-body blockquote { background: #1e1b4b; color: #a5b4fc; }
+
+    /* ── Glass card shared style ── */
+    .glass-card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .dark .glass-card {
+      background: rgba(30,41,59,0.7);
+      border: 1px solid rgba(99,102,241,0.15);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); line-height: 1.6; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
-    h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--text-main); }
-    a { text-decoration: none; color: inherit; transition: 0.2s ease; }
-    img { max-width: 100%; height: auto; border-radius: 8px; }
-
-    /* --- HEADER --- */
-    header {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: var(--shadow-sm);
+    /* ── Animations ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .header-container {
-      max-width: 1200px; margin: 0 auto; padding: 0 20px;
-      height: 70px; display: flex; justify-content: space-between; align-items: center;
-    }
-    .logo { font-size: 24px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
-    .nav-links a { font-weight: 600; color: var(--text-muted); font-size: 15px; }
-    .nav-links a:hover { color: var(--primary); }
-    .btn-upload {
-      background: var(--primary); color: #fff !important; padding: 8px 20px;
-      border-radius: 8px; font-weight: 600; box-shadow: var(--shadow-sm);
-    }
-    .btn-upload:hover { background: var(--primary-hover); transform: translateY(-1px); }
-    .theme-toggle { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted); }
-    
-    /* --- NOTICE BAR --- */
-    .notice-bar {
-      background: var(--primary); color: #fff; height: 40px;
-      display: flex; align-items: center; overflow: hidden; font-size: 14px; font-weight: 500;
-    }
-    .notice-label { background: rgba(0,0,0,0.2); padding: 0 20px; height: 100%; display: flex; align-items: center; font-weight: 700; z-index: 2; position: relative; }
-    .notice-track { display: flex; white-space: nowrap; animation: scrollLeft 25s linear infinite; padding-left: 20px; }
-    .notice-item { margin-right: 50px; display: flex; align-items: center; gap: 8px; }
-    @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-    /* --- HERO SEARCH --- */
-    .hero {
-      text-align: center; padding: 60px 20px; background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
-    }
-    .hero h1 { font-size: 38px; margin-bottom: 15px; }
-    .hero p { color: var(--text-muted); font-size: 18px; max-width: 600px; margin: 0 auto 30px; }
-    .search-form { max-width: 600px; margin: 0 auto; position: relative; }
-    .search-input {
-      width: 100%; padding: 18px 24px 18px 50px; border-radius: 50px;
-      border: 2px solid var(--border); background: var(--bg-body); color: var(--text-main);
-      font-size: 16px; font-family: 'Inter', sans-serif; transition: 0.3s;
-    }
-    .search-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
-    .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px; }
-
-    /* --- LAYOUT --- */
-    .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 320px; gap: 40px; }
-    @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .nav-links { display: none; } }
-
-    /* --- POST GRID --- */
-    .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
-    .card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 24px; transition: 0.3s; display: flex; flex-direction: column;
-    }
-    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
-    .card-icon { font-size: 24px; color: var(--primary); margin-bottom: 15px; }
-    .card h2 { font-size: 18px; margin-bottom: 10px; line-height: 1.4; }
-    .card p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; flex-grow: 1; }
-    .card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); font-weight: 500; border-top: 1px solid var(--border); padding-top: 15px; }
-
-    /* --- SINGLE POST --- */
-    .post-wrapper { background: var(--bg-card); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border); }
-    .post-title { font-size: 32px; margin-bottom: 20px; }
-    .post-body { font-size: 16px; line-height: 1.8; color: var(--text-main); }
-    .post-body a { color: var(--primary); font-weight: 600; text-decoration: underline; }
-    .post-body iframe { width: 100% !important; border-radius: 8px; margin: 25px 0; border: 1px solid var(--border); }
-    .post-body iframe[src*="drive.google"] { min-height: 600px !important; }
-
-    /* --- SIDEBAR WIDGETS --- */
-    .widget { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; }
-    .widget-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
-    .widget-title::before { content: ''; width: 4px; height: 16px; background: var(--primary); border-radius: 4px; }
-    
-    /* Custom List Widget */
-    .link-list { list-style: none; }
-    .link-list li { margin-bottom: 12px; }
-    .link-list a { display: flex; align-items: center; gap: 10px; padding: 10px 15px; background: var(--bg-body); border-radius: 8px; font-weight: 500; font-size: 14px; border: 1px solid var(--border); }
-    .link-list a:hover { border-color: var(--primary); color: var(--primary); }
-
-    /* Forms */
-    .form-input { width: 100%; padding: 12px 15px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); border-radius: 8px; margin-bottom: 15px; font-family: inherit; }
-    .form-btn { width: 100%; padding: 12px; background: var(--text-main); color: var(--bg-card); border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-    .form-btn:hover { opacity: 0.9; }
-
-    /* --- FOOTER --- */
-    footer { background: var(--bg-card); border-top: 1px solid var(--border); padding: 40px 20px; text-align: center; margin-top: 60px; }
-    .footer-text { color: var(--text-muted); font-size: 14px; font-weight: 500; }
+    .fade-in-up { animation: fadeInUp 0.45s ease both; }
   ]]></b:skin>
 </head>
 
-<body>
+<!-- ============================================================
+     BODY
+     ============================================================ -->
+<body
+  class='bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300'
+  id='body-el'>
 
-  <header>
-    <div class='header-container'>
-      <a class='logo' href='/'><i class="fa-solid fa-book-open"></i> PyqHub</a>
-      <nav class='nav-links'>
-        <a href='/search/label/Notice'>Notices</a>
-        <a href='/search/label/Practical'>Practical Files</a>
-        <a href='https://digitalarzi.localhostamit.me/' target='_blank'>Digital Arzi</a>
-        <a class='btn-upload' href='https://upload.pyqhub.tech/' target='_blank'>Upload PYQ</a>
-        <button class='theme-toggle' onclick='toggleTheme()'><i class="fa-solid fa-moon"></i></button>
-      </nav>
-    </div>
-  </header>
+<!-- ══════════════════════════════════════════════════
+     SKIP TO CONTENT (Accessibility)
+══════════════════════════════════════════════════ -->
+<a
+  href='#main-content'
+  class='sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-brand-600 focus:text-white focus:rounded-lg focus:font-semibold'>
+  Skip to main content
+</a>
 
-  <div class='notice-bar'>
-    <div class='notice-label'>UPDATES</div>
-    <div class='notice-track'>
-      <span class='notice-item'><i class="fa-solid fa-bolt"></i> Welcome to PyqHub - KUK Study Resources</span>
-      <span class='notice-item'><i class="fa-solid fa-file-pdf"></i> New BCA 4th Sem Papers Added</span>
-      <span class='notice-item'><i class="fa-solid fa-bolt"></i> Welcome to PyqHub - KUK Study Resources</span>
-      <span class='notice-item'><i class="fa-solid fa-file-pdf"></i> New BCA 4th Sem Papers Added</span>
+<!-- ══════════════════════════════════════════════════
+     TOP NAVIGATION BAR
+══════════════════════════════════════════════════ -->
+<header
+  id='site-header'
+  class='sticky top-0 z-50 w-full border-b border-slate-200/70 dark:border-slate-800/70 glass-card transition-shadow duration-300'>
+
+  <nav class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8' aria-label='Main navigation'>
+    <div class='flex h-16 items-center justify-between gap-4'>
+
+      <!-- ── Logo / Brand ── -->
+      <a href='/' class='flex items-center gap-2.5 flex-shrink-0' aria-label='Pyqhub Home'>
+        <span class='flex items-center justify-center w-8 h-8 rounded-lg bg-brand-600 text-white font-bold text-sm select-none'>
+          P
+        </span>
+        <span class='text-xl font-bold tracking-tight'>
+          Pyq<span class='text-brand-600'>hub</span>
+        </span>
+      </a>
+
+      <!-- ── Desktop Nav Links ── -->
+      <div class='hidden md:flex items-center gap-1' role='menubar'>
+        <a href='/'
+           class='px-3.5 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition-colors'
+           role='menuitem'>
+          <i class='fa-solid fa-house-chimney text-xs mr-1.5'></i>Home
+        </a>
+        <a href='/p/university.html'
+           class='px-3.5 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition-colors'
+           role='menuitem'>
+          <i class='fa-solid fa-building-columns text-xs mr-1.5'></i>University
+        </a>
+        <a href='/p/tools.html'
+           class='px-3.5 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition-colors'
+           role='menuitem'>
+          <i class='fa-solid fa-wrench text-xs mr-1.5'></i>Tools
+        </a>
+        <a href='/p/about.html'
+           class='px-3.5 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition-colors'
+           role='menuitem'>
+          <i class='fa-solid fa-circle-info text-xs mr-1.5'></i>About
+        </a>
+      </div>
+
+      <!-- ── Right Actions ── -->
+      <div class='flex items-center gap-2'>
+        <button
+          id='theme-toggle'
+          type='button'
+          aria-label='Toggle dark mode'
+          class='w-9 h-9 flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>
+          <i id='theme-icon' class='fa-solid fa-moon text-sm'></i>
+        </button>
+
+        <button
+          id='mobile-menu-btn'
+          type='button'
+          aria-label='Open menu'
+          aria-expanded='false'
+          aria-controls='mobile-menu'
+          class='md:hidden w-9 h-9 flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors'>
+          <i id='menu-icon' class='fa-solid fa-bars text-sm'></i>
+        </button>
+      </div>
+
     </div>
+  </nav>
+
+  <!-- ── Mobile Dropdown Menu ── -->
+  <div
+    id='mobile-menu'
+    class='hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 space-y-1'>
+    <a href='/' class='flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors'>
+      <i class='fa-solid fa-house-chimney w-4 text-brand-600'></i>Home
+    </a>
+    <a href='/p/university.html' class='flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors'>
+      <i class='fa-solid fa-building-columns w-4 text-brand-600'></i>University
+    </a>
+    <a href='/p/tools.html' class='flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors'>
+      <i class='fa-solid fa-wrench w-4 text-brand-600'></i>Tools
+    </a>
+    <a href='/p/about.html' class='flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors'>
+      <i class='fa-solid fa-circle-info w-4 text-brand-600'></i>About
+    </a>
   </div>
 
-  <b:if cond='data:view.isHomepage'>
-    <section class='hero'>
-      <h1>Find Your Previous Year Papers</h1>
-      <p>The largest community-driven repository of KUK question papers, syllabus, and study materials.</p>
-      <form action='/search' class='search-form' method='get'>
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input class='search-input' name='q' placeholder='Search subject code, exam, or semester...' required='required' type='text'/>
-      </form>
-    </section>
-  </b:if>
+</header>
 
-  <div class='container'>
-    <main>
-      <b:section id='main-content' showaddelement='no'>
-        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' visible='true'>
+
+<!-- ══════════════════════════════════════════════════
+     HERO — SEARCH-CENTRIC HEADER
+══════════════════════════════════════════════════ -->
+<b:if cond='data:blog.pageType == &quot;index&quot;'>
+<section
+  class='relative overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-indigo-900 dark:from-slate-900 dark:via-brand-900 dark:to-slate-950'
+  aria-labelledby='hero-heading'>
+
+  <div class='absolute inset-0 pointer-events-none overflow-hidden' aria-hidden='true'>
+    <div class='absolute -top-24 -left-24 w-96 h-96 rounded-full bg-white/5 blur-3xl'></div>
+    <div class='absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-brand-400/10 blur-3xl'></div>
+  </div>
+
+  <div class='relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center'>
+
+    <h1
+      id='hero-heading'
+      class='text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4 fade-in-up'>
+      Find Your
+      <span class='text-indigo-200'>Previous Year Papers</span>
+      — Fast.
+    </h1>
+
+    <p class='text-base sm:text-lg text-indigo-100/80 max-w-2xl mx-auto mb-8 fade-in-up' style='animation-delay:0.1s'>
+      Instantly search thousands of PYQs across universities, subjects, and exam years.
+    </p>
+
+    <div class='fade-in-up max-w-2xl mx-auto' style='animation-delay:0.18s' role='search' aria-label='Search previous year papers'>
+      <form
+        action='/search'
+        method='get'
+        id='searchform'
+        class='relative flex items-center glass-card rounded-2xl shadow-2xl ring-2 ring-white/20 focus-within:ring-brand-400 transition-all'>
+
+        <i class='fa-solid fa-magnifying-glass absolute left-4 text-slate-400 dark:text-slate-500 pointer-events-none' aria-hidden='true'></i>
+
+        <input
+          id='search-box'
+          name='q'
+          type='search'
+          autocomplete='off'
+          placeholder='Search papers e.g. "AKTU Physics 2023"…'
+          aria-label='Search papers'
+          class='flex-1 pl-11 pr-4 py-4 bg-transparent text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-base font-medium outline-none rounded-2xl'/>
+
+        <button
+          type='submit'
+          class='m-1.5 px-5 py-3 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-semibold text-sm rounded-xl transition-colors flex items-center gap-2 flex-shrink-0'
+          aria-label='Search'>
+          <i class='fa-solid fa-arrow-right' aria-hidden='true'></i>
+          <span class='hidden sm:inline'>Search</span>
+        </button>
+      </form>
+
+      <div class='flex flex-wrap justify-center gap-2 mt-4' role='group' aria-label='Quick filters'>
+        <a href='/search/label/AKTU' class='px-3 py-1 text-xs font-medium bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full transition-colors'>AKTU</a>
+        <a href='/search/label/Mumbai+University' class='px-3 py-1 text-xs font-medium bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full transition-colors'>Mumbai University</a>
+        <a href='/search/label/GATE' class='px-3 py-1 text-xs font-medium bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full transition-colors'>GATE</a>
+        <a href='/search/label/JEE' class='px-3 py-1 text-xs font-medium bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full transition-colors'>JEE</a>
+        <a href='/search/label/NEET' class='px-3 py-1 text-xs font-medium bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full transition-colors'>NEET</a>
+      </div>
+    </div>
+
+    <div class='flex flex-wrap justify-center gap-6 mt-10 text-white/70 text-sm fade-in-up' style='animation-delay:0.25s' aria-label='Platform statistics'>
+      <span><strong class='text-white font-bold'>10,000+</strong> Papers</span>
+      <span class='hidden sm:inline text-white/30'>|</span>
+      <span><strong class='text-white font-bold'>200+</strong> Universities</span>
+      <span class='hidden sm:inline text-white/30'>|</span>
+      <span><strong class='text-white font-bold'>Free</strong> Forever</span>
+    </div>
+
+  </div>
+</section>
+</b:if>
+
+
+<!-- ══════════════════════════════════════════════════
+     MAIN CONTENT WRAPPER
+══════════════════════════════════════════════════ -->
+<div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10' id='main-content'>
+  <div class='flex flex-col lg:flex-row gap-8 items-start'>
+
+    <!-- PRIMARY CONTENT COLUMN -->
+    <main class='flex-1 min-w-0' role='main' aria-label='Main content'>
+
+      <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <div class='flex items-center justify-between mb-6'>
+          <h2 class='text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2.5'>
+            <span class='flex w-6 h-6 items-center justify-center rounded-md bg-brand-100 dark:bg-brand-900'>
+              <i class='fa-solid fa-layer-group text-xs text-brand-600 dark:text-brand-400'></i>
+            </span>
+            Latest Resources
+          </h2>
+          <a href='/archive' class='text-sm text-brand-600 dark:text-brand-400 font-medium hover:underline flex items-center gap-1'>
+            View all <i class='fa-solid fa-chevron-right text-xs'></i>
+          </a>
+        </div>
+      </b:if>
+
+      <b:section class='main' id='main' maxwidgets='1' showaddelement='no'>
+        <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2'>
+          <b:widget-settings>
+            <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+            <b:widget-setting name='showCommentCount'>true</b:widget-setting>
+            <b:widget-setting name='showAuthor'>false</b:widget-setting>
+          </b:widget-settings>
+
           <b:includable id='main'>
-            <b:if cond='data:view.isSingleItem'>
+            <b:if cond='data:blog.pageType != &quot;item&quot; and data:blog.pageType != &quot;static_page&quot;'>
+              <div class='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5' role='list' aria-label='Resource cards'>
+                <b:loop values='data:posts' var='post'>
+                  <article
+                    class='group relative flex flex-col glass-card rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden'
+                    role='listitem'
+                    itemscope='itemscope'
+                    itemtype='https://schema.org/Article'>
+
+                    <b:if cond='data:post.featuredImage'>
+                      <a expr:href='data:post.url' class='block overflow-hidden rounded-t-2xl aspect-video bg-slate-100 dark:bg-slate-800' tabindex='-1' aria-hidden='true'>
+                        <img
+                          expr:src='data:post.featuredImage'
+                          expr:alt='data:post.title'
+                          class='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+                          loading='lazy'
+                          width='400'
+                          height='225'
+                          itemprop='image'/>
+                      </a>
+                    <b:else/>
+                      <div class='aspect-video bg-gradient-to-br from-brand-50 to-indigo-100 dark:from-slate-800 dark:to-slate-700 rounded-t-2xl flex items-center justify-center' aria-hidden='true'>
+                        <i class='fa-regular fa-file-lines text-4xl text-brand-300 dark:text-brand-700'></i>
+                      </div>
+                    </b:if>
+
+                    <div class='flex flex-col flex-1 p-5'>
+                      <div class='flex flex-wrap gap-1.5 mb-3'>
+                        <b:loop values='data:post.labels' var='label'>
+                          <a
+                            expr:href='data:label.url'
+                            class='inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-brand-50 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900 transition-colors'
+                            rel='tag'>
+                            <data:label.name/>
+                          </a>
+                        </b:loop>
+                      </div>
+
+                      <h3 class='font-bold text-base leading-snug text-slate-900 dark:text-white mb-2 line-clamp-2' itemprop='name'>
+                        <a
+                          expr:href='data:post.url'
+                          class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors after:absolute after:inset-0 after:content-[""]'
+                          itemprop='url'>
+                          <data:post.title/>
+                        </a>
+                      </h3>
+
+                      <p class='text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mb-4 flex-1' itemprop='description'>
+                        <data:post.snippet/>
+                      </p>
+
+                      <div class='flex items-center justify-between text-xs text-slate-400 dark:text-slate-500 mt-auto pt-3 border-t border-slate-100 dark:border-slate-700/50'>
+                        <time expr:datetime='data:post.date.iso8601' itemprop='datePublished'>
+                          <i class='fa-regular fa-calendar mr-1' aria-hidden='true'></i>
+                          <data:post.date/>
+                        </time>
+                        <span aria-label='Comments'>
+                          <i class='fa-regular fa-comment mr-1' aria-hidden='true'></i>
+                          <data:post.numComments/>
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                </b:loop>
+              </div>
+
+              <div class='mt-10'>
+                <b:include name='nextprev'/>
+              </div>
+            </b:if>
+
+            <b:if cond='data:blog.pageType == &quot;item&quot;'>
               <b:loop values='data:posts' var='post'>
-                <article class='post-wrapper'>
-                  <h1 class='post-title'><data:post.title/></h1>
-                  <div class='post-meta' style='margin-bottom: 30px; color: var(--text-muted); font-size: 14px; font-weight: 500;'>
-                    <i class="fa-regular fa-calendar"></i> <data:post.date/>
+                <article
+                  class='bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200/70 dark:border-slate-800/70 overflow-hidden'
+                  itemscope='itemscope'
+                  itemtype='https://schema.org/Article'>
+
+                  <b:if cond='data:post.featuredImage'>
+                    <div class='aspect-video overflow-hidden bg-slate-100 dark:bg-slate-800'>
+                      <img
+                        expr:src='data:post.featuredImage'
+                        expr:alt='data:post.title'
+                        class='w-full h-full object-cover'
+                        loading='eager'
+                        itemprop='image'/>
+                    </div>
+                  </b:if>
+
+                  <div class='p-6 sm:p-8'>
+
+                    <nav aria-label='Breadcrumb' class='mb-4'>
+                      <ol class='flex flex-wrap items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500' itemscope='' itemtype='https://schema.org/BreadcrumbList'>
+                        <li itemprop='itemListElement' itemscope='' itemtype='https://schema.org/ListItem'>
+                          <a href='/' class='hover:text-brand-600 transition-colors' itemprop='item'><span itemprop='name'>Home</span></a>
+                          <meta content='1' itemprop='position'/>
+                        </li>
+                        <li aria-hidden='true'><i class='fa-solid fa-chevron-right text-[10px]'></i></li>
+                        <li class='text-slate-600 dark:text-slate-300 font-medium' itemprop='itemListElement' itemscope='' itemtype='https://schema.org/ListItem'>
+                          <span itemprop='name'><data:post.title/></span>
+                          <meta content='2' itemprop='position'/>
+                        </li>
+                      </ol>
+                    </nav>
+
+                    <div class='flex flex-wrap gap-1.5 mb-4'>
+                      <b:loop values='data:post.labels' var='label'>
+                        <a expr:href='data:label.url' class='px-2 py-0.5 rounded-full text-xs font-semibold bg-brand-50 dark:bg-slate-900/50 text-brand-700 dark:text-brand-300 hover:bg-brand-100 transition-colors' rel='tag'>
+                          <data:label.name/>
+                        </a>
+                      </b:loop>
+                    </div>
+
+                    <h1 class='text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4' itemprop='headline'>
+                      <data:post.title/>
+                    </h1>
+
+                    <div class='flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mb-6 pb-6 border-b border-slate-100 dark:border-slate-800'>
+                      <time expr:datetime='data:post.date.iso8601' itemprop='datePublished' class='flex items-center gap-1.5'>
+                        <i class='fa-regular fa-calendar text-brand-500' aria-hidden='true'></i>
+                        <data:post.date/>
+                      </time>
+                      <span class='flex items-center gap-1.5'>
+                        <i class='fa-regular fa-comment text-brand-500' aria-hidden='true'></i>
+                        <data:post.numComments/> comments
+                      </span>
+                    </div>
+
+                    <div class='post-body prose max-w-none text-slate-700 dark:text-slate-300' itemprop='articleBody'>
+                      <data:post.body/>
+                    </div>
+
+                    <b:if cond='data:post.labels'>
+                      <div class='mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-2 items-center'>
+                        <span class='text-xs font-semibold text-slate-400 uppercase tracking-wider'>Tags:</span>
+                        <b:loop values='data:post.labels' var='label'>
+                          <a expr:href='data:label.url' class='px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-700 dark:hover:bg-brand-900/50 dark:hover:text-brand-300 transition-colors' rel='tag'>
+                            #<data:label.name/>
+                          </a>
+                        </b:loop>
+                      </div>
+                    </b:if>
+
+                    <div class='mt-8'>
+                      <b:include name='nextprev'/>
+                    </div>
+
+                    <div class='mt-10' id='comments'>
+                      <b:include data='post' name='comments'/>
+                    </div>
+
                   </div>
-                  <div class='post-body'><data:post.body/></div>
                 </article>
               </b:loop>
-            <b:else/>
-              <div class='post-grid'>
-                <b:loop values='data:posts' var='post'>
-                  <a class='card' expr:href='data:post.url'>
-                    <i class="fa-regular fa-file-lines card-icon"></i>
-                    <h2><data:post.title/></h2>
-                    <p><data:post.snippet/></p>
-                    <div class='card-meta'>
-                      <span>Read Paper</span>
-                      <i class="fa-solid fa-arrow-right"></i>
-                    </div>
+            </b:if>
+
+          </b:includable>
+
+          <b:includable id='nextprev'>
+            <div class='flex items-center justify-between gap-3 flex-wrap'>
+              <b:if cond='data:newerPageUrl'>
+                <a expr:href='data:newerPageUrl' class='blog-pager-newer-link' rel='next'>
+                  <i class='fa-solid fa-arrow-left text-xs'></i> Newer
+                </a>
+              </b:if>
+              <a href='/' class='home-link'>
+                <i class='fa-solid fa-house text-xs'></i> Home
+              </a>
+              <b:if cond='data:olderPageUrl'>
+                <a expr:href='data:olderPageUrl' class='blog-pager-older-link' rel='prev'>
+                  Older <i class='fa-solid fa-arrow-right text-xs'></i>
+                </a>
+              </b:if>
+            </div>
+          </b:includable>
+
+          <b:includable id='comments' var='post'>
+            <section aria-labelledby='comments-heading' class='space-y-4'>
+              <h2 id='comments-heading' class='text-lg font-bold text-slate-900 dark:text-white'>
+                <i class='fa-regular fa-comments text-brand-600 mr-2' aria-hidden='true'></i>
+                <data:post.numComments/> Comments
+              </h2>
+              <b:include data='post' name='threaded_comments'/>
+              <div id='comment-form' class='mt-6'>
+                <b:include data='post' name='comment-form'/>
+              </div>
+            </section>
+          </b:includable>
+
+        </b:widget>
+      </b:section>
+
+    </main>
+
+
+    <!-- SIDEBAR -->
+    <aside
+      class='w-full lg:w-72 xl:w-80 flex-shrink-0 space-y-5'
+      role='complementary'
+      aria-label='Sidebar'>
+
+      <b:if cond='data:blog.pageType != &quot;index&quot;'>
+        <div class='glass-card rounded-2xl p-4 border border-slate-200/70 dark:border-slate-800/70'>
+          <h2 class='text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2'>
+            <i class='fa-solid fa-magnifying-glass text-brand-600 text-xs'></i> Search Papers
+          </h2>
+          <form action='/search' method='get' role='search' aria-label='Sidebar search'>
+            <div class='flex rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 focus-within:border-brand-500 transition-colors'>
+              <input
+                type='search'
+                name='q'
+                placeholder='e.g. AKTU Maths 2023'
+                aria-label='Search papers'
+                class='flex-1 px-3 py-2.5 text-sm bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 outline-none'/>
+              <button type='submit' class='px-3 bg-brand-600 hover:bg-brand-700 text-white transition-colors' aria-label='Search'>
+                <i class='fa-solid fa-arrow-right text-xs'></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </b:if>
+
+      <div class='glass-card rounded-2xl p-4 border border-slate-200/70 dark:border-slate-800/70'>
+        <h2 class='text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2'>
+          <i class='fa-solid fa-fire-flame-curved text-orange-500 text-xs'></i> Top Resources
+        </h2>
+        <b:section class='sidebar-top' id='sidebar-top' maxwidgets='1' showaddelement='yes'>
+          <b:widget id='LinkList1' locked='false' title='Top Resources' type='LinkList' version='2'>
+            <b:includable id='main'>
+              <ul class='space-y-2' role='list'>
+                <b:loop values='data:links' var='link'>
+                  <li role='listitem'>
+                    <a
+                      expr:href='data:link.target'
+                      class='flex items-center gap-2.5 p-2 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-brand-50 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors group'>
+                      <span class='flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-md bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 group-hover:bg-brand-200 dark:group-hover:bg-brand-900 transition-colors'>
+                        <i class='fa-regular fa-file-lines text-xs'></i>
+                      </span>
+                      <data:link.name/>
+                    </a>
+                  </li>
+                </b:loop>
+              </ul>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </div>
+
+      <div class='glass-card rounded-2xl p-4 border border-slate-200/70 dark:border-slate-800/70'>
+        <h2 class='text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2'>
+          <i class='fa-solid fa-tag text-brand-600 text-xs'></i> Categories
+        </h2>
+        <b:section class='sidebar-labels' id='sidebar-labels' maxwidgets='1' showaddelement='yes'>
+          <b:widget id='Label1' locked='false' title='Labels' type='Label' version='2'>
+            <b:includable id='main'>
+              <div class='flex flex-wrap gap-2' role='list'>
+                <b:loop values='data:labels' var='label'>
+                  <a
+                    expr:href='data:label.url'
+                    class='inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-700 dark:hover:bg-brand-900/50 dark:hover:text-brand-300 transition-colors'
+                    rel='tag'
+                    role='listitem'>
+                    <data:label.name/>
+                    <b:if cond='data:showFreqNumbers'>
+                      <span class='opacity-60'>(<data:label.count/>)</span>
+                    </b:if>
                   </a>
                 </b:loop>
               </div>
-              <b:include name='nextprev'/>
-            </b:if>
-          </b:includable>
-          <b:includable id='nextprev'>
-            <div style='display:flex; justify-content:space-between; margin-top:40px; font-weight:600;'>
-              <b:if cond='data:newerPageUrl'><a expr:href='data:newerPageUrl'>&lt; Newer Posts</a><b:else/><span/></b:if>
-              <b:if cond='data:olderPageUrl'><a expr:href='data:olderPageUrl'>Older Posts &gt;</a></b:if>
-            </div>
-          </b:includable>
-        </b:widget>
-      </b:section>
-    </main>
-
-    <aside>
-      <b:section id='sidebar' showaddelement='yes'>
-        <b:widget id='HTML1' locked='false' title='Important Links' type='HTML' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[
-              <ul class="link-list">
-                <li><a href="https://kuk.ac.in/syllabi/" target="_blank"><i class="fa-solid fa-book"></i> KUK Official Syllabus</a></li>
-                <li><a href="https://iums.kuk.ac.in/login.htm" target="_blank"><i class="fa-solid fa-lock"></i> IUMS Student Login</a></li>
-                <li><a href="https://iums.kuk.ac.in/anon_studentResultReport.htm" target="_blank"><i class="fa-solid fa-trophy"></i> Check Results</a></li>
-              </ul>
-            ]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <h2 class='widget-title'><data:title/></h2>
-            <div class='widget-content'><data:content/></div>
-          </b:includable>
-        </b:widget>
-
-        <b:widget id='Label1' locked='false' title='Browse Categories' type='Label' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
-            <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='showFreqNumbers'>false</b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <h2 class='widget-title'><data:title/></h2>
-            <ul class='link-list'>
-              <b:loop values='data:labels' var='label'>
-                <li><a expr:href='data:label.url'><i class="fa-solid fa-folder"></i> <data:label.name/></a></li>
-              </b:loop>
-            </ul>
-          </b:includable>
-        </b:widget>
-
-        <b:widget id='HTML2' locked='false' title='Request a Paper' type='HTML' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[
-              <p style="font-size:14px; color:var(--text-muted); margin-bottom:15px;">Can't find what you're looking for? Let us know.</p>
-              <form action="https://formsubmit.co/infopyqhub@gmail.com" method="POST">
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="text" name="subject" class="form-input" placeholder="E.g., BCA 4th Sem Java 2024" required />
-                <button type="submit" class="form-btn">Send Request</button>
-              </form>
-            ]]></b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main'>
-            <h2 class='widget-title'><data:title/></h2>
-            <div class='widget-content'><data:content/></div>
-          </b:includable>
-        </b:widget>
-      </b:section>
-    </aside>
-  </div>
-
-  <footer>
-    <div class='footer-text'>
-      <p>&copy; 2026 Pyqhub. Built for KUK Students.</p>
-      <div style='margin-top: 15px; display:flex; justify-content:center; gap:20px;'>
-        <a href='/p/privacy-policy.html'>Privacy Policy</a>
-        <a href='mailto:infopyqhub@gmail.com'>Contact Support</a>
+            </b:includable>
+          </b:widget>
+        </b:section>
       </div>
+
+      <div class='glass-card rounded-2xl p-4 border border-slate-200/70 dark:border-slate-800/70'>
+        <h2 class='text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2'>
+          <i class='fa-solid fa-chart-line text-green-500 text-xs'></i> Popular Posts
+        </h2>
+        <b:section class='sidebar-popular' id='sidebar-popular' maxwidgets='1' showaddelement='yes'>
+          <b:widget id='PopularPosts1' locked='false' title='Popular Posts' type='PopularPosts' version='2'>
+            <b:includable id='main'>
+              <ul class='space-y-3' role='list'>
+                <b:loop values='data:posts' var='post'>
+                  <li class='flex gap-3 items-start group' role='listitem'>
+                    <b:if cond='data:post.featuredImage'>
+                      <a expr:href='data:post.url' class='flex-shrink-0' tabindex='-1' aria-hidden='true'>
+                        <img
+                          expr:src='data:post.featuredImage'
+                          expr:alt='data:post.title'
+                          class='w-14 h-14 rounded-lg object-cover bg-slate-100'
+                          loading='lazy'
+                          width='56'
+                          height='56'/>
+                      </a>
+                    </b:if>
+                    <div class='min-w-0'>
+                      <a expr:href='data:post.url' class='text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-2 leading-snug'>
+                        <data:post.title/>
+                      </a>
+                      <time expr:datetime='data:post.date.iso8601' class='text-xs text-slate-400 dark:text-slate-500 mt-0.5 block'>
+                        <data:post.date/>
+                      </time>
+                    </div>
+                  </li>
+                </b:loop>
+              </ul>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class='mt-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900' role='contentinfo'>
+  <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10'>
+
+    <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8'>
+
+      <div class='sm:col-span-2 lg:col-span-1'>
+        <a href='/' class='flex items-center gap-2 mb-3' aria-label='Pyqhub Home'>
+          <span class='w-8 h-8 flex items-center justify-center rounded-lg bg-brand-600 text-white font-bold text-sm'>P</span>
+          <span class='text-xl font-bold'>Pyq<span class='text-brand-600'>hub</span></span>
+        </a>
+        <p class='text-sm text-slate-500 dark:text-slate-400 leading-relaxed'>
+          Your one-stop hub for Previous Year Papers across all major Indian universities and competitive exams.
+        </p>
+      </div>
+
+      <nav aria-labelledby='footer-nav-explore'>
+        <h3 id='footer-nav-explore' class='text-sm font-bold text-slate-700 dark:text-slate-300 mb-3'>Explore</h3>
+        <ul class='space-y-2 text-sm text-slate-500 dark:text-slate-400' role='list'>
+          <li><a href='/' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>Home</a></li>
+          <li><a href='/p/university.html' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>Universities</a></li>
+          <li><a href='/p/tools.html' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>Tools</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-labelledby='footer-nav-support'>
+        <h3 id='footer-nav-support' class='text-sm font-bold text-slate-700 dark:text-slate-300 mb-3'>Support</h3>
+        <ul class='space-y-2 text-sm text-slate-500 dark:text-slate-400' role='list'>
+          <li><a href='/p/about.html' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>About</a></li>
+          <li><a href='/p/contact.html' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>Contact</a></li>
+          <li><a href='/p/privacy-policy.html' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>Privacy Policy</a></li>
+          <li><a href='/p/dmca.html' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>DMCA</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-labelledby='footer-nav-exams'>
+        <h3 id='footer-nav-exams' class='text-sm font-bold text-slate-700 dark:text-slate-300 mb-3'>Popular Exams</h3>
+        <ul class='space-y-2 text-sm text-slate-500 dark:text-slate-400' role='list'>
+          <li><a href='/search/label/GATE' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>GATE</a></li>
+          <li><a href='/search/label/JEE' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>JEE</a></li>
+          <li><a href='/search/label/NEET' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>NEET</a></li>
+          <li><a href='/search/label/UPSC' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>UPSC</a></li>
+          <li><a href='/search/label/AKTU' class='hover:text-brand-600 dark:hover:text-brand-400 transition-colors'>AKTU</a></li>
+        </ul>
+      </nav>
+
     </div>
-  </footer>
 
-  <script>
-    // Theme Toggle Logic
-    function toggleTheme() {
-      const html = document.documentElement;
-      const icon = document.querySelector('.theme-toggle i');
-      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      
-      if(next === 'dark') {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-      } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
+    <div class='pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 dark:text-slate-500'>
+      <span>&#169; <script>document.write(new Date().getFullYear())</script> Pyqhub. All rights reserved.</span>
+      <span>Made with <span class='text-red-500' aria-label='love'>&#10084;</span> for students.</span>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- JAVASCRIPT -->
+<script>
+(function () {
+  'use strict';
+
+  var html      = document.documentElement;
+  var toggleBtn = document.getElementById('theme-toggle');
+  var icon      = document.getElementById('theme-icon');
+  var DARK_CLS  = 'dark';
+  var STORAGE_K = 'pyqhub-theme';
+
+  function applyTheme(dark) {
+    if (dark) {
+      html.classList.add(DARK_CLS);
+      if (icon) { icon.classList.replace('fa-moon', 'fa-sun'); }
+    } else {
+      html.classList.remove(DARK_CLS);
+      if (icon) { icon.classList.replace('fa-sun', 'fa-moon'); }
+    }
+  }
+
+  var saved   = localStorage.getItem(STORAGE_K);
+  var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(saved === 'dark' || (saved === null && sysDark));
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function () {
+      var isDark = html.classList.contains(DARK_CLS);
+      applyTheme(!isDark);
+      localStorage.setItem(STORAGE_K, isDark ? 'light' : 'dark');
+    });
+  }
+
+  var menuBtn    = document.getElementById('mobile-menu-btn');
+  var mobileMenu = document.getElementById('mobile-menu');
+  var menuIcon   = document.getElementById('menu-icon');
+
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', function () {
+      var open = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden', open);
+      menuBtn.setAttribute('aria-expanded', String(!open));
+      if (menuIcon) {
+        if (open) {
+          menuIcon.classList.replace('fa-xmark', 'fa-bars');
+        } else {
+          menuIcon.classList.replace('fa-bars', 'fa-xmark');
+        }
       }
-    }
+    });
+  }
 
-    // Initialize Theme
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
-    }
-  </script>
+  var header = document.getElementById('site-header');
+  if (header) {
+    window.addEventListener('scroll', function () {
+      header.classList.toggle('shadow-md', window.scrollY > 8);
+    }, { passive: true });
+  }
+
+})();
+</script>
+
 </body>
 </html>
