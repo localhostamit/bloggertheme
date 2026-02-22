@@ -771,7 +771,7 @@
             <div class='comment-form'>
               <b:if cond='data:post.allowNewComments'>
                 <b:if cond='data:post.embedCommentForm'>
-                  <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:id='data:widget.instanceId + "_cmtform"' frameborder='0' height='410' scrolling='no' width='100%'/>
+                  <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:id='data:widget.instanceId + "_cmtform"' frameborder='0' height='410' scrolling='no' style='border:none;overflow:hidden' title='Comment Form' width='100%'/>
                 <b:else/>
                   <a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick' class='inline-flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg text-sm font-medium hover:bg-brand-700 transition-colors'>
                     <i class='fa-regular fa-pen-to-square text-xs'></i> Post a Comment
